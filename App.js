@@ -2,6 +2,7 @@ import React from 'react';
 import {Platform, StatusBar, StyleSheet, View} from 'react-native';
 import {AppLoading, Asset, Font, Icon} from 'expo';
 import HomeScreen from './screens/HomeScreen';
+import {Toolbar} from "react-native-material-ui";
 
 
 export default class App extends React.Component {
@@ -21,6 +22,10 @@ export default class App extends React.Component {
         } else {
             return (
                 <View style={styles.container}>
+                    <Toolbar
+                        leftElement="menu"
+                        centerElement="Image Gallery App"
+                    />
                     <HomeScreen/>
                 </View>
             );

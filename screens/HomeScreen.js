@@ -43,10 +43,6 @@ export default class HomeScreen extends React.Component {
         if (!this.state.isLoadingComplete) {
             return (
                 <View style={styles.container}>
-                    <Toolbar
-                        leftElement="menu"
-                        centerElement="Image Gallery App"
-                    />
                     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
                         <View style={styles.welcomeContainer}>
                             <Text style={styles.getStartedText}>Loading Images</Text>
@@ -60,19 +56,6 @@ export default class HomeScreen extends React.Component {
 
             return (
                 <View style={styles.container}>
-                    <Toolbar
-                        leftElement="menu"
-                        centerElement="Image Gallery App"
-                        rightElement={{
-                            menu: {
-                                icon: "more-vert",
-                                labels: []
-                            }
-                        }}
-                        onRightElementPress={(label) => {
-                            console.log(label)
-                        }}
-                    />
                     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
                         <Card>
