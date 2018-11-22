@@ -1,12 +1,9 @@
 import React from 'react';
 import {
-    Image,
     Platform,
     ScrollView,
     StyleSheet,
     Text,
-    Button,
-    TouchableOpacity,
     View,
     ActivityIndicator,
 } from 'react-native';
@@ -85,7 +82,7 @@ export default class HomeScreen extends React.Component {
 
                         <Card>
                             <CardImage
-                                source={{uri: `https://picsum.photos/${currentImageData.width}/${currentImageData.height}?image=${currentImageData.id}`}}
+                                source={{uri: this._constructImageURL(currentImageData.width, currentImageData.height, currentImageData.id)}}
                                 resizeMode={"cover"}
 
                             />
@@ -113,7 +110,8 @@ export default class HomeScreen extends React.Component {
                             </CardAction>
 
                             <CardContent text={`Author: ${currentImageData.author}`}/>
-                            <CardContent text={`Format: ${currentImageData.format}`}/>
+                            <CardContent
+                                text={`Format: ${currentImageData.format} (${currentImageData.width} x ${currentImageData.height})`}/>
                         </Card>
 
                     </ScrollView>
@@ -121,6 +119,10 @@ export default class HomeScreen extends React.Component {
             );
         }
 
+    }
+
+    _constructImageURL(width, height, id) {
+        return `https://picsum.photos/${width}/${height}?image=${id}`
     }
 
     _isPreviousExists() {
