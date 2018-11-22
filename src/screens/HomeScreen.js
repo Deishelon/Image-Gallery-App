@@ -4,6 +4,7 @@ import {
     ScrollView,
     StyleSheet,
     Text,
+    Button,
     View,
     ActivityIndicator,
 } from 'react-native';
@@ -34,7 +35,7 @@ export default class HomeScreen extends React.Component {
                     this.apiData = responseJson;
                     this.setState({apiResult: ApiConstants.apiResult.OK});
                     console.log(`API data is here. Data size: ${responseJson.length}`)
-                }else {
+                } else {
                     console.log(`API data is not valid`)
                     this.setState({apiResult: ApiConstants.apiResult.ERR});
                 }
@@ -59,8 +60,8 @@ export default class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                    <View style={styles.welcomeContainer}>
-                        <Text style={styles.getStartedText}>Loading Images</Text>
+                    <View style={styles.centeredContainer}>
+                        <Text style={styles.primaryTextStyle}>Loading Images</Text>
                         <ActivityIndicator size="large" color="#03A9F4"/>
                     </View>
 
@@ -75,40 +76,43 @@ export default class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-
+                    <Text style={styles.primaryTextStyle}>{`Filename: ${currentImageData.filename}`}</Text>
                     <Card>
                         <CardImage
                             source={{uri: ApiConstants.constructImageURL(currentImageData.width, currentImageData.height, currentImageData.id)}}
                             resizeMode={"cover"}
 
                         />
-                        <CardAction
-                            separator={true}
-                            inColumn={false}>
-                            <CardButton
-                                onPress={() => {
-                                    if (this._isPreviousExists()) {
-                                        this._handlePreviousPress()
-                                    }
-                                }}
-                                title="Previous"
-                                color={this._isPreviousExists() ? "blue" : "grey"}
-                            />
-                            <CardButton
-                                onPress={() => {
-                                    if (this._isNextExists()) {
-                                        this._handleNextPress()
-                                    }
-                                }}
-                                title="Next"
-                                color={this._isNextExists() ? "blue" : "grey"}
-                            />
-                        </CardAction>
-
-                        <CardContent text={`Author: ${currentImageData.author}`}/>
-                        <CardContent
-                            text={`Format: ${currentImageData.format} (${currentImageData.width} x ${currentImageData.height})`}/>
                     </Card>
+
+                    <View style={styles.containerSpaceBetween}>
+                        <Button
+                            onPress={() => {
+                                if (this._isPreviousExists()) {
+                                    this._handlePreviousPress()
+                                }
+                            }}
+                            title="Previous"
+                            color={this._isPreviousExists() ? "#2196F3" : "grey"}
+                            accessibilityLabel="Previous"
+                        />
+
+                        <Button
+                            onPress={() => {
+                                if (this._isNextExists()) {
+                                    this._handleNextPress()
+                                }
+                            }}
+                            title="Next"
+                            color={this._isNextExists() ? "#2196F3" : "grey"}
+                            accessibilityLabel="Next"
+                        />
+
+                    </View>
+
+                    <Text style={styles.primaryTextStyle}>{`Author: ${currentImageData.author}`}</Text>
+                    <Text
+                        style={styles.primaryTextStyle}>{`Format: ${currentImageData.format} (${currentImageData.width} x ${currentImageData.height})`}</Text>
 
                 </ScrollView>
             </View>
@@ -119,8 +123,8 @@ export default class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                    <View style={styles.welcomeContainer}>
-                        <Text style={styles.getStartedText}>There was an error loading images</Text>
+                    <View style={styles.centeredContainer}>
+                        <Text style={styles.primaryTextStyle}>There was an error loading images</Text>
                     </View>
                 </ScrollView>
             </View>
@@ -155,15 +159,22 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    welcomeContainer: {
+    centeredContainer: {
         alignItems: 'center',
         marginTop: 10,
         marginBottom: 20,
     },
-    getStartedText: {
+    primaryTextStyle: {
         fontSize: 17,
         color: 'rgba(96,100,109, 1)',
         lineHeight: 24,
         textAlign: 'center',
     },
+    containerSpaceBetween: {
+        paddingLeft: 15,
+        paddingEnd: 15,
+        paddingBottom: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    }
 });
