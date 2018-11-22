@@ -1,7 +1,7 @@
 import React from 'react';
 import {Platform, StatusBar, StyleSheet, View} from 'react-native';
 import {AppLoading, Asset, Font, Icon} from 'expo';
-import HomeScreen from './screens/HomeScreen';
+import HomeScreen from './src/screens/HomeScreen';
 import {Toolbar} from "react-native-material-ui";
 
 
