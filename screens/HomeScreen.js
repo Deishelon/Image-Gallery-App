@@ -7,19 +7,14 @@ import {
     View,
     ActivityIndicator,
 } from 'react-native';
-import {AppLoading, Asset, Font, Icon, WebBrowser} from 'expo';
-
 import {Toolbar} from 'react-native-material-ui';
-
 import {Card, CardTitle, CardContent, CardAction, CardButton, CardImage} from 'react-native-material-cards'
-
 
 export default class HomeScreen extends React.Component {
 
     constructor(props) {
         super(props);
         this.getGalleryFromApiAsync()
-
     }
 
     apiData = []
@@ -34,11 +29,11 @@ export default class HomeScreen extends React.Component {
         return fetch('https://picsum.photos/list')
             .then((response) => response.json())
             .then((responseJson) => {
-                this.apiData = responseJson
+                this.apiData = responseJson;
                 this.setState({isLoadingComplete: true});
+                console.log(`API data is here. Data size: ${responseJson.length}`)
                 return responseJson;
-            })
-            .catch((error) => {
+            }).catch((error) => {
                 console.error(error);
             });
     }
@@ -135,46 +130,16 @@ export default class HomeScreen extends React.Component {
 
     _handleNextPress = () => {
         this.currentItemPosition++
+        console.log(`NextPress. Data position at: ${this.currentItemPosition} / ${this.apiData.length}`)
         this.setState({isLoadingComplete: true});
     };
 
     _handlePreviousPress = () => {
         this.currentItemPosition--
+        console.log(`PreviousPress. Data position at: ${this.currentItemPosition} / ${this.apiData.length}`)
         this.setState({isLoadingComplete: true});
     };
 
-    _maybeRenderDevelopmentModeWarning() {
-        if (__DEV__) {
-            const learnMoreButton = (
-                <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-                    Learn more
-                </Text>
-            );
-
-            return (
-                <Text style={styles.developmentModeText}>
-                    Development mode is enabled, your app will be slower but you can use useful development
-                    tools. {learnMoreButton}
-                </Text>
-            );
-        } else {
-            return (
-                <Text style={styles.developmentModeText}>
-                    You are not in development mode, your app will run at full speed.
-                </Text>
-            );
-        }
-    }
-
-    _handleLearnMorePress = () => {
-        WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-    };
-
-    _handleHelpPress = () => {
-        WebBrowser.openBrowserAsync(
-            'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-        );
-    };
 }
 
 const styles = StyleSheet.create({
